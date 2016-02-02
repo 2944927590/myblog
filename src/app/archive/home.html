@@ -1,0 +1,126 @@
+<script export="main" type="text/template">
+        <style>
+            .headline {
+                font-size: 18px;
+                padding: 10px 0;
+                border-bottom: 1px #e5e5e5 solid;
+            }
+            .font-green {
+                font-size: 20px;
+            }
+            article {
+                padding: 10px 0;
+                border-bottom: 1px #e5e5e5 solid;
+            }
+            article:last-child {
+                border-bottom: none;
+            }
+            article .title {
+                padding: 10px 0;
+                font-size: 16px;
+            }
+            article .title a {
+                text-decoration: none;
+                color: #333;
+            }
+            article .title a:hover {
+                color: red;
+            }
+            article .title a:hover i {
+                color: red;
+            }
+            article .title .icon-title {
+                font-size: 12px;
+                color: #ADB5A6;
+            }
+            article img.img-thumbnail {
+                width: 220px;
+                padding: 0;
+                border-radius: 0;
+                overflow: hidden;
+            }
+            article .content p {
+                height: 100px;
+                overflow: hidden;
+            }
+            article .sub-title {
+                padding: 10px 0;
+                vertical-align: bottom;
+            }
+            article .sub-title .btn-read-all {
+                border-radius: 0;
+                background-color: #ADB5A6;
+                border-color: #ADB5A6;
+            }
+            article .sub-title .btn-read-all:hover {
+                background-color: #74796F;
+                border-color: #74796F;
+            }
+
+        </style>
+        {{ if( 0 == it.category.length && 0 == it.massage.length ) { }}
+            <div class="headline">文章<span class="font-green">推荐</span></div>
+        {{ } else if(0 == it.category.length && it.massage.length > 0) { }}
+            <div class="headline">{{=it.massage}}</div>
+        {{ } else { }}
+            <div class="headline">{{=it.category}}</div>
+        {{ } }}
+        <div class="article-list">
+            {{ it.details.forEach(function(item){ }}
+                <article>
+                    <div class="title" title="{{=item.title}}"><a href="javascript:;" data-go-route="archive/detail/init&article_id={{=item.id}}"><i class="glyphicon glyphicon-triangle-right icon-title"></i>&nbsp;{{=item.title}}</a></div>
+                    <div class="row">
+                        <div class="col-md-3"><img class="img-thumbnail" src="../img/{{=item.img_file}}"></div>
+                        <div class="col-md-9">
+                            <div class="content">
+                                <p>{{=item.content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row sub-title">
+                        <div class="col-md-3"><i class="glyphicon glyphicon-time"></i>&nbsp;{{=item.create_time}}</div>
+                        <div class="col-md-2"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;{{=item.category}}</div>
+                        <div class="col-md-2"><i class="glyphicon glyphicon-eye-open"></i> {{=item.hits}}</div>
+                        <div class="col-md-5"><a href="javascript:;" class="btn btn-success btn-sm pull-right btn-read-all" data-go-route="archive/detail/init&article_id={{=item.id}}">阅读全文>></a></div>
+                    </div>
+                </article>
+            {{ }); }}
+
+            <!--<article>
+                <div class="title">做快乐的程序员，享受编程生活</div>
+                <div class="row">
+                    <div class="col-md-3"><img class="img-thumbnail" src="../img/article.jpg"></div>
+                    <div class="col-md-9">
+                        <div class="content">
+                            <p>什么是快乐的程序员呢？就是把编程当作兴趣和爱好的人，享受着编程的快乐的一群人。
+                                优秀的程序员都是从快乐的程序员开始的。因为，成为优秀的程序员是需要很长时间的磨练的，如果在编程中连快乐都没有，很难熬到优秀程序员的。事实上，做任何事情只要找到了快乐，成功是迟早的事情。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row sub-title">
+                    <div class="col-md-3"><i class="glyphicon glyphicon-time"></i> 2015年03月12日</div>
+                    <div class="col-md-2"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;生活积累</div>
+                    <div class="col-md-2"><i class="glyphicon glyphicon-eye-open"></i> 120</div>
+                    <div class="col-md-5"><a href="detail.html" class="btn btn-success btn-sm pull-right btn-read-all">阅读全文>></a></div>
+                </div>
+            </article>
+            <article>
+                <div class="title">做快乐的程序员，享受编程生活</div>
+                <div class="row">
+                    <div class="col-md-3"><img class="img-thumbnail" src="../img/article.jpg"></div>
+                    <div class="col-md-9">
+                        <div class="content">
+                            <p>什么是快乐的程序员呢？就是把编程当作兴趣和爱好的人，享受着编程的快乐的一群人。
+                                优秀的程序员都是从快乐的程序员开始的。因为，成为优秀的程序员是需要很长时间的磨练的，如果在编程中连快乐都没有，很难熬到优秀程序员的。事实上，做任何事情只要找到了快乐，成功是迟早的事情。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row sub-title">
+                    <div class="col-md-3"><i class="glyphicon glyphicon-time"></i> 2015年03月12日</div>
+                    <div class="col-md-2"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;&nbsp;生活积累</div>
+                    <div class="col-md-2"><i class="glyphicon glyphicon-eye-open"></i> 120</div>
+                    <div class="col-md-5"><a href="detail.html" class="btn btn-success btn-sm pull-right btn-read-all">阅读全文>></a></div>
+                </div>
+            </article>-->
+        </div>
+</script>
