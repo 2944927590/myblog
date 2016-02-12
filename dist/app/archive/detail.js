@@ -1,62 +1,93 @@
 define(function(require, exports, module){
 
+    var tpl = require('./tpl_detail');
+    var service = require('_service/archive');
+    var base = require('_base/base');
+    var route = require('route');
+    var msg = require('msg');
+    var event = require('event');
     var container_left = $('#container-left');
 
     exports._init = function(){
         console.log('archive/detail/_init', '模块前置');
+        event.on('clickPraise', function (e, $el) {
+            var detailId = $el.data('detail-id');
+            var isPraise = $el.data('is-praise');
+
+            route.go({
+                module: 'archive/detail',
+                action: 'praise',
+                params: {
+                    detailId: detailId,
+                    isPraise: isPraise
+                },
+                options: {
+                    reload: true
+                }
+            });
+        });
     };
 
     exports.init = function(){
         console.log('archive/detail/init');
-        var tpl = require('./tpl_detail');
-        var service = require('_service/archive');
-        var base = require('_base/base');
-        var url = require('url');
+    };
 
-        container_left.on("addClass",  function(e, data){
-            //console.log(data);
-            base.addClassActive( data.category_id );
-        });
+    exports.detail_init = function(){
+        console.log('archive/detail/detail_init');
+    }
 
-        container_left.on("changeArticle", function(e, data){
-            var article_id = data.article_id;
-
-            service.getDetails(function(details){
-                var details = details;
-                //console.log(details);
-                getCategoryIdByArticleId(details, article_id, function(category_id){
-                    container_left.trigger("addClass", {category_id: category_id});
-                });
-
-                base.articleSort(details, 'id', 'ase', function(details){
-                    //console.log(details);
-                    base.timeToStr(details, function(details){
-                        var details = details;
-                        getArticleKey(details, article_id, function(key){
-                            getThreeArticle(details, key, function(threeArticle){
-                                //console.log(threeArticle);
-                                $('#container-left').html( tpl.main({threeArticle: threeArticle[0]}) );
-                            });
+    exports.detail = function(){
+        console.log('archive/detail/detail');
+        var detailId = route.getParams('detailId') - 0;
+        var isPraise = route.getParams('isPraise');
+        //console.log(detailId);
+        //console.log(isPraise);
+        service.getDetails(function(details){
+            var details = details;
+            getCategoryIdByArticleId(details, detailId, function(categoryId){
+                base.addClassActive(categoryId);
+            });
+            base.articleSort(details, 'id', 'ase', function(details){
+                base.timeToStr(details, function(details){
+                    var details = details;
+                    getArticleKey(details, detailId, function(key){
+                        getThreeArticle(details, key, function(threeArticle){
+                            //console.log(threeArticle);
+                            $('#container-left').html( tpl.main({threeArticle: threeArticle[0], isPraise:isPraise}) );
                         });
                     });
                 });
             });
         });
+    }
 
-        var article_id = url.get('?article_id');
-        container_left.trigger("changeArticle", {article_id: article_id});
+    exports.praise = function(){
+        var detailId = route.getParams('detailId') - 0;
+        var isPraise = route.getParams('isPraise') - 0;
+        if(isPraise)
+            msg.notice("确定取消 ？");
+        else
+            msg.notice("确定点赞 ？");
 
-        $(window).on('hashchange', function(){
-            var article_id = url.get('?article_id');
-            //console.log(article_id);
-            container_left.trigger("changeArticle", {article_id: article_id});
+        //console.log(isPraise);
+        //console.log(detailId);
+        route.go({
+            module: 'archive/detail',
+            action: 'detail',
+            params: {
+                detailId: detailId,
+                isPraise: (isPraise + 1)%2
+            },
+            options: {
+                reload: true
+            }
         });
+    }
 
-    };
     exports._destroy = function(){
-        container_left.off("changeArticle").off("addClass");
         console.log('archive/detail/_destroy', '模块后置');
     };
+
     function getCategoryIdByArticleId(details, article_id, cb){
         if(0 == details.length){
             cb('');
@@ -69,6 +100,7 @@ define(function(require, exports, module){
             });
         }
     }
+
     function getThreeArticle(details, key, cb){
         var arr = new Array();
         var length = details.length;
@@ -88,6 +120,7 @@ define(function(require, exports, module){
         }
         cb(arr);
     }
+
     function getArticleKey(details, article_id, cb){
         if(0 == details.length){
             cb('');
@@ -99,4 +132,5 @@ define(function(require, exports, module){
             });
         }
     }
+
 });

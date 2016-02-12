@@ -13,7 +13,6 @@ define(function(require, exports, module){
         var config = require('_config/app');
         var base = require('_base/base');
         service.getDetails(function(details){
-
             base.articleCut(details, config.indexShowNum, function(detailsCuted){
                 //console.log(detailsCuted);
                 base.timeToStr(detailsCuted, function(detailsStrTime){

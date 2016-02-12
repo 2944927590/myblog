@@ -53,7 +53,7 @@ define(function(require, exports, module){
         } else {
             var time = require("time");
             details.forEach(function(item){
-                item.create_time = time.format('yyyy年mm月dd日', parseInt(item.create_time));
+                item.create_time = time.format('yyyy年mm月dd日', parseInt(item.create_time * 1000));
             });
             cb(details || []);
         }

@@ -25,7 +25,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">{{=it.title}}</a>
+                    <a class="navbar-brand" href="javascript:;" data-go-route="archive/home/init">{{=it.title}}</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse">
@@ -34,13 +34,13 @@
                         <li data-nav="talk"><a href="javascript:;" data-go-route="archive/talk/init">说说</a></li>
                         {{ it.topicList.forEach(function(item) { }}
                         {{ if(item.children.length == 0){ }}
-                            <li data-nav="category{{=item.id}}"><a href="javascript:;" data-go-route="archive/category/init&category_id={{=item.id}}">{{=item.name}}</a></li>
+                            <li data-nav="category{{=item.id}}"><a href="javascript:;" data-go-route-reload="archive/category/list&categoryId={{=item.id}}">{{=item.name}}</a></li>
                         {{ } else { }}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=item.name}}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {{ item.children.forEach(function(item_children) { }}
-                                    <li data-nav="category{{=item_children.id}}"><a href="javascript:;" data-go-route="archive/category/init&category_id={{=item_children.id}}">{{=item_children.name}}</a></li>
+                                    <li data-nav="category{{=item_children.id}}"><a href="javascript:;" data-go-route-reload="archive/category/list&categoryId={{=item_children.id}}">{{=item_children.name}}</a></li>
                                     {{ }); }}
                             </ul>
                         {{ } }}
@@ -133,7 +133,7 @@
                     <div class="new-blog-details">
                         <ul>
                             {{ it.detailsTimeDesc.forEach(function(item, k){  }}
-                                <li><a href="javascript:;" title="{{=item.title}}" data-go-route="archive/detail/init&article_id={{=item.id}}">{{=k+1}}.{{=item.title}}</a></li>
+                                <li><a href="javascript:;" title="{{=item.title}}" data-go-route-reload="archive/detail/detail&detailId={{=item.id}}">{{=k+1}}.{{=item.title}}</a></li>
                             {{ }); }}
                         </ul>
                     </div>
@@ -141,7 +141,7 @@
                     <div class="reading-list-details">
                         <ul>
                             {{ it.detailsHitsDesc.forEach(function(item, k){  }}
-                            <li><a href="javascript:;" title="{{=item.title}}" data-go-route="archive/detail/init&article_id={{=item.id}}">{{=k+1}}.{{=item.title}}</a></li>
+                            <li><a href="javascript:;" title="{{=item.title}}" data-go-route-reload="archive/detail/detail&detailId={{=item.id}}">{{=k+1}}.{{=item.title}}</a></li>
                             {{ }); }}
                         </ul>
                     </div>

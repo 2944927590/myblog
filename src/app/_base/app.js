@@ -1,11 +1,12 @@
 define(function(require, exports, module){
 
+    var css = require('./css_app');
+    var tpl = require('./tpl_app');
+    var config = require('_config/app');
+    var service = require('_service/archive');
+    var base = require('_base/base');
+
     exports.init = function(){
-        var css = require('./css_app');
-        var tpl = require('./tpl_app');
-        var config = require('_config/app');
-        var service = require('_service/archive');
-        var base = require('_base/base');
         service.getTopicList(function (topicList) {
             base.nav(topicList, function(topicList){
                 //console.log('topicList', topicList);

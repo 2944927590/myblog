@@ -27,6 +27,12 @@
         .article-next a:hover {
             color: red;
         }
+        .article-icon ul li a.praise {
+            color: red;
+        }
+        .article-icon ul li a.praise:hover {
+            color: #333;
+        }
         .article-icon ul:after {
             display: block;
             clear: both;
@@ -62,7 +68,13 @@
         <div class="col-md-12 article-icon">
             <ul>
                 <li>
-                    <a href="javascript:;"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞</a>
+                    {{ if(it.isPraise == 0){ }}
+                        <a href="javascript:;" data-is-praise="0" data-detail-id="{{=it.threeArticle.cur.id}}" data-trigger="clickPraise"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞</a>
+                    {{ } else if(it.isPraise == 1) { }}
+                        <a class="praise" href="javascript:;" data-is-praise="1" data-detail-id="{{=it.threeArticle.cur.id}}" data-trigger="clickPraise"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;取消赞</a>
+                    {{ } else { }}
+                        <a href="javascript:;" data-is-praise="0" data-detail-id="{{=it.threeArticle.cur.id}}" data-trigger="clickPraise"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞</a>
+                    {{ } }}
                 </li>
                 <li>
                     <i class="glyphicon glyphicon-comment"></i>&nbsp;0人评论
@@ -73,13 +85,13 @@
             {{ if( typeof it.threeArticle.pre.title == "undefined" ){ }}
                 <p class="article-pre"><i class="glyphicon glyphicon-chevron-up"></i>&nbsp;上一篇：无</p>
             {{ } else { }}
-                <p class="article-pre"><a href="javascript:;" data-go-route="archive/detail/init&article_id={{=it.threeArticle.pre.id}}"><i class="glyphicon glyphicon-chevron-up"></i>&nbsp;上一篇：{{=it.threeArticle.pre.title}}</a></p>
+                <p class="article-pre"><a href="javascript:;" data-go-route-reload="archive/detail/detail&detailId={{=it.threeArticle.pre.id}}"><i class="glyphicon glyphicon-chevron-up"></i>&nbsp;上一篇：{{=it.threeArticle.pre.title}}</a></p>
             {{ } }}
 
             {{ if( typeof it.threeArticle.next.title == "undefined" ){ }}
                 <p class="article-next"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;下一篇：无</p>
             {{ } else { }}
-                <p class="article-next"><a href="javascript:;" data-go-route="archive/detail/init&article_id={{=it.threeArticle.next.id}}"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;下一篇：{{=it.threeArticle.next.title}}</a></p>
+                <p class="article-next"><a href="javascript:;" data-go-route-reload="archive/detail/detail&detailId={{=it.threeArticle.next.id}}"><i class="glyphicon glyphicon-chevron-down"></i>&nbsp;下一篇：{{=it.threeArticle.next.title}}</a></p>
             {{ } }}
 
         </div>

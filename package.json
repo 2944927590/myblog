@@ -20,8 +20,8 @@
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-rename": "^1.2.2",
-    "gulp-seajs-css": "^1.0.4",
-    "gulp-seajs-dot": "^1.0.4",
+    "gulp-seajs-css": "^1.0.2",
+    "gulp-seajs-dot": "^1.0.3",
     "http-server": "^0.8.5"
   }
 }
