@@ -1,6 +1,7 @@
 define(function(require, exports, module){
 
     exports._init = function(){
+        console.log(1);
         console.log('archive/home/_init', '模块前置');
         $('#navbar-nav li').removeClass('active');
         $('#navbar-nav li[data-nav="home"]').addClass('active');

@@ -9,6 +9,7 @@ define(function(require, exports, module){
     var container_left = $('#container-left');
 
     exports._init = function(){
+        console.log(2);
         console.log('archive/detail/_init', '模块前置');
         event.on('clickPraise', function (e, $el) {
             var detailId = $el.data('detail-id');
