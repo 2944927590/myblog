@@ -14,7 +14,7 @@ gulp.task('clean', function () {
     gulp.src(['./src/index.html', './src/lib/**/*', './src/mock/**/*', './src/vendor/**/*'], {base: './src/'})
         .pipe(gulp.dest(DIST));
 });
-
+console.log(222222);
 gulp.task('copy', handleCopy);
 function handleCopy(path) {
     path = typeof path === 'string' ? path : APP + '**/*.js';
