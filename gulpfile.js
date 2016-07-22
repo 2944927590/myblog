@@ -8,7 +8,7 @@ var DIST = './dist/';
 var DIST_APP = DIST + 'app/';
 var SRC = 'src/';
 var APP = SRC + 'app/';
-
+console.log(11111);
 gulp.task('clean', function () {
     del.sync(DIST);
     gulp.src(['./src/index.html', './src/lib/**/*', './src/mock/**/*', './src/vendor/**/*'], {base: './src/'})
